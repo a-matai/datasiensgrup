@@ -1,0 +1,123 @@
+{
+ "metadata": {
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.5-final"
+  },
+  "orig_nbformat": 2,
+  "kernelspec": {
+   "name": "python38564bitd0f716ec3ba9485fbb6e044caca2f77a",
+   "display_name": "Python 3.8.5 64-bit"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2,
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 46,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "   STOP_ID DIRECTION_ID                 STOP_NAME STATION_NAME  \\\n0    30162            W  18th (54th/Cermak-bound)         18th   \n1    30162            W  18th (54th/Cermak-bound)         18th   \n2    30162            W  18th (54th/Cermak-bound)         18th   \n3    30162            W  18th (54th/Cermak-bound)         18th   \n4    30162            W  18th (54th/Cermak-bound)         18th   \n\n  STATION_DESCRIPTIVE_NAME  MAP_ID   ADA    RED   BLUE      G  ...      Y  \\\n0         18th (Pink Line)   40830  True  False  False  False  ...  False   \n1         18th (Pink Line)   40830  True  False  False  False  ...  False   \n2         18th (Pink Line)   40830  True  False  False  False  ...  False   \n3         18th (Pink Line)   40830  True  False  False  False  ...  False   \n4         18th (Pink Line)   40830  True  False  False  False  ...  False   \n\n    Pnk      O               Location        Lat        Lon   zips  \\\n0  True  False  41.857908, -87.669147  41.857908 -87.669147  60608   \n1  True  False  41.857908, -87.669147  41.857908 -87.669147  60608   \n2  True  False  41.857908, -87.669147  41.857908 -87.669147  60608   \n3  True  False  41.857908, -87.669147  41.857908 -87.669147  60608   \n4  True  False  41.857908, -87.669147  41.857908 -87.669147  60608   \n\n   Community Area  Zipcode  Pop2010  \n0              28    60608     7667  \n1              29    60608     2283  \n2              30    60608    16654  \n3              31    60608    34380  \n4              59    60608     6594  \n\n[5 rows x 23 columns]\nIndex(['STOP_ID', 'DIRECTION_ID', 'STOP_NAME', 'STATION_NAME',\n       'STATION_DESCRIPTIVE_NAME', 'MAP_ID', 'ADA', 'RED', 'BLUE', 'G', 'BRN',\n       'P', 'Pexp', 'Y', 'Pnk', 'O', 'Location', 'Lat', 'Lon', 'zips',\n       'Community Area', 'Zipcode', 'Pop2010'],\n      dtype='object')\n"
+     ]
+    }
+   ],
+   "source": [
+    "import pandas as pd \n",
+    "\n",
+    "# This notebook will set up the data we need to run our linear regressions.\n",
+    "\n",
+    "# First, load the datasets we will need.\n",
+    "CA_pop = pd.read_csv(\"../data/CA_pop.csv\")\n",
+    "# crime = pd.read_csv(\"\")\n",
+    "lstops = pd.read_csv(\"../data/lstops_localized.csv\")\n",
+    "parks = pd.read_csv(\"../data/parks_localized.csv\")\n",
+    "#print(CA_pop.head())\n",
+    "print(lstops.head())\n",
+    "print(lstops.columns)\n",
+    "#print(parks.columns)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 47,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "   ACRES  Community Area  Pop2010\n0   10.3              28     7667\n1   10.3              29     2283\n2   10.3              30    16654\n3   10.3              31    34380\n4   10.3              59     6594\n   Community Area        Acres\n0               1   284.460000\n1               2   390.560000\n2               3    30.740000\n3               4   389.422277\n4               5  1395.020000\n****\n****\n   Community Area  Num L Stops\n0              32           50\n1              28           48\n2              24           38\n3              29           36\n4               7           36\n****\n****\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Now we need to get the columns that we need and build our data frames\n",
+    "# We will make two data frames: crime_time and conditions\n",
+    "# crime_time: Crime rates by Community \n",
+    "# conditions: Acerage of parks and number of L train stops by Community\n",
+    "\n",
+    "# First, we'll make conditions\n",
+    "\n",
+    "parks1 = parks.filter(['ACRES','Community Area','Pop2010'], axis=1)\n",
+    "parks1 = parks1.groupby('Community Area')[['ACRES']].agg('sum')\n",
+    "parks1 = parks1.reset_index()\n",
+    "parks1.columns = ['Community Area','Acres']\n",
+    "print(parks1.head())\n",
+    "\n",
+    "print())\n",
+    "print())\n",
+    "\n",
+    "lstops1 = lstops['Community Area'].value_counts()\n",
+    "lstops1 = lstops1.reset_index()\n",
+    "lstops1.columns = ['Community Area','Num L Stops']\n",
+    "print(lstops1.head())\n",
+    "\n",
+    "# Do the same sort of grouping for any other datasets we want to consider"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 48,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "   Community Area        Acres  Num L Stops\n0               1   284.460000           16\n1               2   390.560000           16\n2               3    30.740000           22\n3               4   389.422277           32\n4               5  1395.020000           34\n"
+     ]
+    }
+   ],
+   "source": [
+    "# merge the datasets now to get all of the attributes of each community\n",
+    "# in one place.\n",
+    "# For now, we are only looking at two attributes, so we do a single merge\n",
+    "\n",
+    "conditions = parks1.merge(lstops1)\n",
+    "print(conditions.head())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Now we will make the crime dataframe."
+   ]
+  }
+ ]
+}

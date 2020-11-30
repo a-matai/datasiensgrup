@@ -21,4 +21,4 @@ parks = parks.merge(ca_to_zip, left_on="ZIP", right_on="ZIP")
 parks['ZIP'] = parks['ZIP'].apply(lambda z : int(z))
 print(parks.head())
 #output csv
-parks.to_csv("../data/lstops_localized.csv",index=False)
+parks.to_csv("../data/parks_localized.csv",index=False)
