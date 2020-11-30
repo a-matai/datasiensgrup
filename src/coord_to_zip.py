@@ -7,6 +7,7 @@ import pandas as pd
 df = pd.DataFrame({
     'Lat': [41.864712],
     'Lon': [-87.65882]
+    })
 
 def coord_to_zip(df) :
     gis = GIS()
