@@ -27,10 +27,8 @@ lstops["Lon"] = lon_list
 
 #import ca to zip data
 ca_to_zip = pd.read_csv('../data/ca_zip.csv',header=None)
-print(ca_to_zip.head())
 
 ca_to_zip = ca_to_zip.drop(ca_to_zip.index[0])
-print(ca_to_zip.head())
 
 ca_to_zip.columns = ["Community Area", "Zipcode", "Pop2010"]
 
