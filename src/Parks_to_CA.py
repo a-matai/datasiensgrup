@@ -17,7 +17,8 @@ ca_to_zip['ZIP'] = ca_to_zip['ZIP'].apply(lambda z : float(z))
 
 
 #merge based on ca_to_zip
-copparks['ZIP'] = parks['ZIP'].apply(lambda z : int(z))
+parks = parks.merge(ca_to_zip, left_on="ZIP", right_on="ZIP")
+parks['ZIP'] = parks['ZIP'].apply(lambda z : int(z))
 print(parks.head())
 #output csv
 parks.to_csv("../data/parks_localized.csv",index=False)
