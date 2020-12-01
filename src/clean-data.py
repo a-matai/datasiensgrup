@@ -18,5 +18,6 @@ date_spec = date[0].str.split("/", n = 2, expand = True)
 df["Month"] = date_spec[0]
 df["Day"] = date_spec[1]
 df["Time"] = date[1]
+df["Date"] = date[0]
 
 df.to_csv("../data/clean_data.csv")
