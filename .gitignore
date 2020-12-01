@@ -1,1 +1,8 @@
 .Crimes_-_2001_to_Present.csv
+clean_data.csv
+.gitignore
+.ipynb_checkpoints
+env
+*~
+.DS_Store
+.vscode
