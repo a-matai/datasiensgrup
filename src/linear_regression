@@ -23,14 +23,14 @@
  "cells": [
   {
    "cell_type": "code",
-   "execution_count": 46,
+   "execution_count": 48,
    "metadata": {},
    "outputs": [
     {
      "output_type": "stream",
      "name": "stdout",
      "text": [
-      "   STOP_ID DIRECTION_ID                 STOP_NAME STATION_NAME  \\\n0    30162            W  18th (54th/Cermak-bound)         18th   \n1    30162            W  18th (54th/Cermak-bound)         18th   \n2    30162            W  18th (54th/Cermak-bound)         18th   \n3    30162            W  18th (54th/Cermak-bound)         18th   \n4    30162            W  18th (54th/Cermak-bound)         18th   \n\n  STATION_DESCRIPTIVE_NAME  MAP_ID   ADA    RED   BLUE      G  ...      Y  \\\n0         18th (Pink Line)   40830  True  False  False  False  ...  False   \n1         18th (Pink Line)   40830  True  False  False  False  ...  False   \n2         18th (Pink Line)   40830  True  False  False  False  ...  False   \n3         18th (Pink Line)   40830  True  False  False  False  ...  False   \n4         18th (Pink Line)   40830  True  False  False  False  ...  False   \n\n    Pnk      O               Location        Lat        Lon   zips  \\\n0  True  False  41.857908, -87.669147  41.857908 -87.669147  60608   \n1  True  False  41.857908, -87.669147  41.857908 -87.669147  60608   \n2  True  False  41.857908, -87.669147  41.857908 -87.669147  60608   \n3  True  False  41.857908, -87.669147  41.857908 -87.669147  60608   \n4  True  False  41.857908, -87.669147  41.857908 -87.669147  60608   \n\n   Community Area  Zipcode  Pop2010  \n0              28    60608     7667  \n1              29    60608     2283  \n2              30    60608    16654  \n3              31    60608    34380  \n4              59    60608     6594  \n\n[5 rows x 23 columns]\nIndex(['STOP_ID', 'DIRECTION_ID', 'STOP_NAME', 'STATION_NAME',\n       'STATION_DESCRIPTIVE_NAME', 'MAP_ID', 'ADA', 'RED', 'BLUE', 'G', 'BRN',\n       'P', 'Pexp', 'Y', 'Pnk', 'O', 'Location', 'Lat', 'Lon', 'zips',\n       'Community Area', 'Zipcode', 'Pop2010'],\n      dtype='object')\n"
+      "   STOP_ID DIRECTION_ID                 STOP_NAME STATION_NAME  \\\n0    30162            W  18th (54th/Cermak-bound)         18th   \n1    30162            W  18th (54th/Cermak-bound)         18th   \n2    30162            W  18th (54th/Cermak-bound)         18th   \n3    30162            W  18th (54th/Cermak-bound)         18th   \n4    30162            W  18th (54th/Cermak-bound)         18th   \n\n  STATION_DESCRIPTIVE_NAME  MAP_ID   ADA    RED   BLUE      G  ...      Y  \\\n0         18th (Pink Line)   40830  True  False  False  False  ...  False   \n1         18th (Pink Line)   40830  True  False  False  False  ...  False   \n2         18th (Pink Line)   40830  True  False  False  False  ...  False   \n3         18th (Pink Line)   40830  True  False  False  False  ...  False   \n4         18th (Pink Line)   40830  True  False  False  False  ...  False   \n\n    Pnk      O               Location        Lat        Lon   zips  \\\n0  True  False  41.857908, -87.669147  41.857908 -87.669147  60608   \n1  True  False  41.857908, -87.669147  41.857908 -87.669147  60608   \n2  True  False  41.857908, -87.669147  41.857908 -87.669147  60608   \n3  True  False  41.857908, -87.669147  41.857908 -87.669147  60608   \n4  True  False  41.857908, -87.669147  41.857908 -87.669147  60608   \n\n   Community Area  Zipcode  Pop2010  \n0              28    60608     7667  \n1              29    60608     2283  \n2              30    60608    16654  \n3              31    60608    34380  \n4              59    60608     6594  \n\n[5 rows x 23 columns]\nIndex(['STOP_ID', 'DIRECTION_ID', 'STOP_NAME', 'STATION_NAME',\n       'STATION_DESCRIPTIVE_NAME', 'MAP_ID', 'ADA', 'RED', 'BLUE', 'G', 'BRN',\n       'P', 'Pexp', 'Y', 'Pnk', 'O', 'Location', 'Lat', 'Lon', 'zips',\n       'Community Area', 'Zipcode', 'Pop2010'],\n      dtype='object')\n   Community  Pop2010         w      total\n0          1    63484  0.021921  2896016.0\n1          2    73199  0.025276        NaN\n2          3    63551  0.021944        NaN\n3          4    44574  0.015391        NaN\n4          5    31895  0.011013        NaN\n"
      ]
     }
    ],
@@ -40,26 +40,27 @@
     "# This notebook will set up the data we need to run our linear regressions.\n",
     "\n",
     "# First, load the datasets we will need.\n",
-    "CA_pop = pd.read_csv(\"../data/CA_pop.csv\")\n",
-    "# crime = pd.read_csv(\"\")\n",
+    "pop = pd.read_csv(\"../data/CA_pop.csv\")\n",
+    "crime = pd.read_csv(\"../data/clean_data.csv\")\n",
     "lstops = pd.read_csv(\"../data/lstops_localized.csv\")\n",
     "parks = pd.read_csv(\"../data/parks_localized.csv\")\n",
     "#print(CA_pop.head())\n",
     "print(lstops.head())\n",
     "print(lstops.columns)\n",
-    "#print(parks.columns)\n"
+    "#print(parks.columns)\n",
+    "print(pop.head())\n"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 47,
+   "execution_count": 49,
    "metadata": {},
    "outputs": [
     {
      "output_type": "stream",
      "name": "stdout",
      "text": [
-      "   ACRES  Community Area  Pop2010\n0   10.3              28     7667\n1   10.3              29     2283\n2   10.3              30    16654\n3   10.3              31    34380\n4   10.3              59     6594\n   Community Area        Acres\n0               1   284.460000\n1               2   390.560000\n2               3    30.740000\n3               4   389.422277\n4               5  1395.020000\n****\n****\n   Community Area  Num L Stops\n0              32           50\n1              28           48\n2              24           38\n3              29           36\n4               7           36\n****\n****\n"
+      "   Community Area        Acres\n0               1   284.460000\n1               2   390.560000\n2               3    30.740000\n3               4   389.422277\n4               5  1395.020000\n\n\n   Community Area  Num L Stops\n0              32           50\n1              28           48\n2              24           38\n3              29           36\n4               7           36\n"
      ]
     }
    ],
@@ -77,8 +78,8 @@
     "parks1.columns = ['Community Area','Acres']\n",
     "print(parks1.head())\n",
     "\n",
-    "print())\n",
-    "print())\n",
+    "print()\n",
+    "print()\n",
     "\n",
     "lstops1 = lstops['Community Area'].value_counts()\n",
     "lstops1 = lstops1.reset_index()\n",
@@ -90,14 +91,29 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 48,
+   "execution_count": 50,
    "metadata": {},
    "outputs": [
     {
      "output_type": "stream",
      "name": "stdout",
      "text": [
-      "   Community Area        Acres  Num L Stops\n0               1   284.460000           16\n1               2   390.560000           16\n2               3    30.740000           22\n3               4   389.422277           32\n4               5  1395.020000           34\n"
+      "   Community  Pop2010         w      total\n0          1    63484  0.021921  2896016.0\n1          2    73199  0.025276        NaN\n2          3    63551  0.021944        NaN\n3          4    44574  0.015391        NaN\n4          5    31895  0.011013        NaN\n"
+     ]
+    },
+    {
+     "output_type": "error",
+     "ename": "MergeError",
+     "evalue": "No common columns to perform merge on. Merge options: left_on=None, right_on=None, left_index=False, right_index=False",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mMergeError\u001b[0m                                Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-50-fb8d292e2c59>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[1;32m      8\u001b[0m \u001b[0mweights\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mpop\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mfilter\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m'Community'\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m'pop2010'\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m'w'\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      9\u001b[0m \u001b[0mweights\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mrename\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mcolumns\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;34m{\u001b[0m\u001b[0;34m'Community'\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m'Community Area'\u001b[0m\u001b[0;34m}\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 10\u001b[0;31m \u001b[0mconditions\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mmerge\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mweights\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     11\u001b[0m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mconditions\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mhead\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.local/lib/python3.8/site-packages/pandas/core/frame.py\u001b[0m in \u001b[0;36mmerge\u001b[0;34m(self, right, how, on, left_on, right_on, left_index, right_index, sort, suffixes, copy, indicator, validate)\u001b[0m\n\u001b[1;32m   7948\u001b[0m         \u001b[0;32mfrom\u001b[0m \u001b[0mpandas\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcore\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mreshape\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mmerge\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mmerge\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   7949\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 7950\u001b[0;31m         return merge(\n\u001b[0m\u001b[1;32m   7951\u001b[0m             \u001b[0mself\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   7952\u001b[0m             \u001b[0mright\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.local/lib/python3.8/site-packages/pandas/core/reshape/merge.py\u001b[0m in \u001b[0;36mmerge\u001b[0;34m(left, right, how, on, left_on, right_on, left_index, right_index, sort, suffixes, copy, indicator, validate)\u001b[0m\n\u001b[1;32m     72\u001b[0m     \u001b[0mvalidate\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;32mNone\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     73\u001b[0m ) -> \"DataFrame\":\n\u001b[0;32m---> 74\u001b[0;31m     op = _MergeOperation(\n\u001b[0m\u001b[1;32m     75\u001b[0m         \u001b[0mleft\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     76\u001b[0m         \u001b[0mright\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.local/lib/python3.8/site-packages/pandas/core/reshape/merge.py\u001b[0m in \u001b[0;36m__init__\u001b[0;34m(self, left, right, how, on, left_on, right_on, axis, left_index, right_index, sort, suffixes, copy, indicator, validate)\u001b[0m\n\u001b[1;32m    643\u001b[0m             \u001b[0mwarnings\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mwarn\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mmsg\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mUserWarning\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    644\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 645\u001b[0;31m         \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_validate_specification\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    646\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    647\u001b[0m         \u001b[0;31m# note this function has side effects\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.local/lib/python3.8/site-packages/pandas/core/reshape/merge.py\u001b[0m in \u001b[0;36m_validate_specification\u001b[0;34m(self)\u001b[0m\n\u001b[1;32m   1212\u001b[0m                 \u001b[0mcommon_cols\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mleft\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcolumns\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mintersection\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mright\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcolumns\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   1213\u001b[0m                 \u001b[0;32mif\u001b[0m \u001b[0mlen\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mcommon_cols\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;34m==\u001b[0m \u001b[0;36m0\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 1214\u001b[0;31m                     raise MergeError(\n\u001b[0m\u001b[1;32m   1215\u001b[0m                         \u001b[0;34m\"No common columns to perform merge on. \"\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   1216\u001b[0m                         \u001b[0;34mf\"Merge options: left_on={self.left_on}, \"\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mMergeError\u001b[0m: No common columns to perform merge on. Merge options: left_on=None, right_on=None, left_index=False, right_index=False"
      ]
     }
    ],
@@ -107,7 +123,94 @@
     "# For now, we are only looking at two attributes, so we do a single merge\n",
     "\n",
     "conditions = parks1.merge(lstops1)\n",
+    "# weights = pop\n",
+    "print(pop.head())\n",
+    "weights = pop.filter(['Community','pop2010','w'])\n",
+    "weights.rename(columns={'Community':'Community Area'})\n",
+    "conditions.merge(weights)\n",
     "print(conditions.head())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 47,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "   Month  Year  Community Area\n",
+      "0      1  2001            45.0\n",
+      "1     10  2017            73.0\n",
+      "2      3  2017            70.0\n",
+      "3      9  2017            42.0\n",
+      "4      8  2017            32.0\n",
+      "   Month  Year  Community Area\n",
+      "1     10  2017            73.0\n",
+      "2      3  2017            70.0\n",
+      "3      9  2017            42.0\n",
+      "4      8  2017            32.0\n",
+      "5      1  2015            65.0\n",
+      "Year  Month  Community Area\n",
+      "2015  1      1.0               295\n",
+      "             2.0               251\n",
+      "             3.0               245\n",
+      "             4.0               156\n",
+      "             5.0               112\n",
+      "Name: Community Area, dtype: int64\n"
+     ]
+    },
+    {
+     "output_type": "error",
+     "ename": "KeyError",
+     "evalue": "'Community Area'",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mKeyError\u001b[0m                                  Traceback (most recent call last)",
+      "\u001b[0;32m~/.local/lib/python3.8/site-packages/pandas/core/indexes/base.py\u001b[0m in \u001b[0;36mget_loc\u001b[0;34m(self, key, method, tolerance)\u001b[0m\n\u001b[1;32m   2894\u001b[0m             \u001b[0;32mtry\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 2895\u001b[0;31m                 \u001b[0;32mreturn\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_engine\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_loc\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mcasted_key\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   2896\u001b[0m             \u001b[0;32mexcept\u001b[0m \u001b[0mKeyError\u001b[0m \u001b[0;32mas\u001b[0m \u001b[0merr\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32mpandas/_libs/index.pyx\u001b[0m in \u001b[0;36mpandas._libs.index.IndexEngine.get_loc\u001b[0;34m()\u001b[0m\n",
+      "\u001b[0;32mpandas/_libs/index.pyx\u001b[0m in \u001b[0;36mpandas._libs.index.IndexEngine.get_loc\u001b[0;34m()\u001b[0m\n",
+      "\u001b[0;32mpandas/_libs/index_class_helper.pxi\u001b[0m in \u001b[0;36mpandas._libs.index.Int64Engine._check_type\u001b[0;34m()\u001b[0m\n",
+      "\u001b[0;31mKeyError\u001b[0m: 'Community Area'",
+      "\nThe above exception was the direct cause of the following exception:\n",
+      "\u001b[0;31mKeyError\u001b[0m                                  Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-47-3dfca14697f6>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[1;32m     19\u001b[0m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mg\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mhead\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     20\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 21\u001b[0;31m \u001b[0mdf\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mg\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m'Community Area'\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcount\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     22\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     23\u001b[0m \u001b[0;31m# crime2 = crime1.groubby(['Year','Month'])['Community Area'].count()\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.local/lib/python3.8/site-packages/pandas/core/series.py\u001b[0m in \u001b[0;36m__getitem__\u001b[0;34m(self, key)\u001b[0m\n\u001b[1;32m    880\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    881\u001b[0m         \u001b[0;32melif\u001b[0m \u001b[0mkey_is_scalar\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 882\u001b[0;31m             \u001b[0;32mreturn\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_get_value\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mkey\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    883\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    884\u001b[0m         \u001b[0;32mif\u001b[0m \u001b[0mis_hashable\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mkey\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.local/lib/python3.8/site-packages/pandas/core/series.py\u001b[0m in \u001b[0;36m_get_value\u001b[0;34m(self, label, takeable)\u001b[0m\n\u001b[1;32m    987\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    988\u001b[0m         \u001b[0;31m# Similar to Index.get_value, but we do not fall back to positional\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 989\u001b[0;31m         \u001b[0mloc\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mindex\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_loc\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mlabel\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    990\u001b[0m         \u001b[0;32mreturn\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mindex\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_get_values_for_loc\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mloc\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mlabel\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    991\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.local/lib/python3.8/site-packages/pandas/core/indexes/multi.py\u001b[0m in \u001b[0;36mget_loc\u001b[0;34m(self, key, method)\u001b[0m\n\u001b[1;32m   2702\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2703\u001b[0m         \u001b[0;32mif\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0misinstance\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mkey\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mtuple\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 2704\u001b[0;31m             \u001b[0mloc\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_get_level_indexer\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mkey\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mlevel\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;36m0\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   2705\u001b[0m             \u001b[0;32mreturn\u001b[0m \u001b[0m_maybe_to_slice\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mloc\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2706\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.local/lib/python3.8/site-packages/pandas/core/indexes/multi.py\u001b[0m in \u001b[0;36m_get_level_indexer\u001b[0;34m(self, key, level, indexer)\u001b[0m\n\u001b[1;32m   2967\u001b[0m         \u001b[0;32melse\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2968\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 2969\u001b[0;31m             \u001b[0mcode\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_get_loc_single_level_index\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mlevel_index\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mkey\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   2970\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2971\u001b[0m             \u001b[0;32mif\u001b[0m \u001b[0mlevel\u001b[0m \u001b[0;34m>\u001b[0m \u001b[0;36m0\u001b[0m \u001b[0;32mor\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mlexsort_depth\u001b[0m \u001b[0;34m==\u001b[0m \u001b[0;36m0\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.local/lib/python3.8/site-packages/pandas/core/indexes/multi.py\u001b[0m in \u001b[0;36m_get_loc_single_level_index\u001b[0;34m(self, level_index, key)\u001b[0m\n\u001b[1;32m   2635\u001b[0m             \u001b[0;32mreturn\u001b[0m \u001b[0;34m-\u001b[0m\u001b[0;36m1\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2636\u001b[0m         \u001b[0;32melse\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 2637\u001b[0;31m             \u001b[0;32mreturn\u001b[0m \u001b[0mlevel_index\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_loc\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mkey\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   2638\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2639\u001b[0m     \u001b[0;32mdef\u001b[0m \u001b[0mget_loc\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mkey\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mmethod\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;32mNone\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.local/lib/python3.8/site-packages/pandas/core/indexes/base.py\u001b[0m in \u001b[0;36mget_loc\u001b[0;34m(self, key, method, tolerance)\u001b[0m\n\u001b[1;32m   2895\u001b[0m                 \u001b[0;32mreturn\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_engine\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget_loc\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mcasted_key\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2896\u001b[0m             \u001b[0;32mexcept\u001b[0m \u001b[0mKeyError\u001b[0m \u001b[0;32mas\u001b[0m \u001b[0merr\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 2897\u001b[0;31m                 \u001b[0;32mraise\u001b[0m \u001b[0mKeyError\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mkey\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;32mfrom\u001b[0m \u001b[0merr\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   2898\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2899\u001b[0m         \u001b[0;32mif\u001b[0m \u001b[0mtolerance\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0;32mNone\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mKeyError\u001b[0m: 'Community Area'"
+     ]
+    }
+   ],
+   "source": [
+    "# Now we will make the crime dataframe.\n",
+    "# We will calculate the crimerate for each Community for every month in the past\n",
+    "# five years.\n",
+    "\n",
+    "# First, filter out the data before 2015\n",
+    "# Second, calculate crime rate\n",
+    "#   rate := total crime in that community / total crime that month\n",
+    "# Third, build the dataset\n",
+    "crime1 = crime.filter(['Month','Year','Community Area'])\n",
+    "print(crime1.head())\n",
+    "\n",
+    "after_2015 = crime1['Year'] >= 2015\n",
+    "crime1 = crime1[after_2015]\n",
+    "crime_CA = crime1.copy()\n",
+    "print(crime1.head())\n",
+    "\n",
+    "crime1.set_index('Year')\n",
+    "g = crime1.groupby(['Year','Month','Community Area'])['Community Area'].count()\n",
+    "print(g.head())\n",
+    "\n",
+    "df = g['Community Area'].count()\n",
+    "\n",
+    "# crime2 = crime1.groubby(['Year','Month'])['Community Area'].count()\n",
+    "# crime1 = crime1.groubby(['Year','Month']).sum()"
    ]
   },
   {
@@ -115,9 +218,7 @@
    "execution_count": null,
    "metadata": {},
    "outputs": [],
-   "source": [
-    "# Now we will make the crime dataframe."
-   ]
+   "source": []
   }
  ]
 }
