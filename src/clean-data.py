@@ -8,7 +8,8 @@ df = pd.read_csv("../data/Crimes_-_2001_to_Present.csv", na_values = " ", low_me
 
 #Remove data before 2010
 list = df[df['Year'] < 2010].index.tolist()
-df.drop(list, inplace = False)
+df.drop(list, inplace = True)
+df.index = range(len(df))
 
 #Delete rows that have a missing Community Area value
 list = df[df['Community Area'].isnull()].index.tolist()
@@ -24,6 +25,7 @@ df["Month"] = date_spec[0]
 df["Day"] = date_spec[1]
 df["Time"] = date[1]
 df["Date"] = date[0]
+
 
 #add a crime label column using https://www.justia.com/criminal/offenses/ categories
 property_crimes = "BURGLARY|THEFT|LARCENY|ROBBERY|SHOPLIFTING|PROPERTY|DAMAGE"
@@ -45,4 +47,4 @@ df.loc[mask, 'type'] = "FINANCIAL"
 mask = df['Primary Type'].str.contains(statutory_crimes)
 df.loc[mask, 'type'] = "STATUTORY"
 
-df.to_csv("../clean_data.csv")
+df.to_csv("../data/clean_data.csv")
